@@ -12,24 +12,20 @@ struct ScrumsView: View {
     let scrums: [DailyScrum]
     
     var body: some View {
-        if #available(macOS 13.0, *) {
-            NavigationStack {
-                List(scrums) { scrum in
-                    NavigationLink(destination: Text(scrum.title)) {
-                        CardView(scrum: scrum)
-                    }
-                    .listRowBackground(scrum.theme.mainColor)
+        NavigationStack {
+            List(scrums) { scrum in
+                NavigationLink(destination: DetailView(scrum: scrum)) {
+                    CardView(scrum: scrum)
                 }
-                .navigationTitle("Daily Scrums")
-                .toolbar {
-                    Button(action: {}) {
-                        Image(systemName: "plus")
-                    }
-                    .accessibilityLabel("New Scrum")
-                }
+                .listRowBackground(scrum.theme.mainColor)
             }
-        } else {
-            // Fallback on earlier versions
+            .navigationTitle("Daily Scrums")
+            .toolbar {
+                Button(action: {}) {
+                    Image(systemName: "plus")
+                }
+                .accessibilityLabel("New Scrum")
+            }
         }
     }
 }
